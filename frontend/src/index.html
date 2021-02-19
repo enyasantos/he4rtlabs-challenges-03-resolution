@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css">
+  <link rel="stylesheet" href="assets/styles.css"/>
+  <title>He4tr Form</title>
+</head>
+<body>
+  <div class="wrapper">
+
+    <section class="container signin__container">
+
+      <aside class="container__purple"></aside>
+
+      <div class="content signin__theme">
+
+        <header class="content__header">
+          <h1 class="header__title">Realizar Login</h1>
+          <div class="header__logo">
+            He4rt<span>devs</span>
+          </div>
+        </header>
+
+        <form class="content__form">
+
+          <p class="message message__email"></p>
+          <input class="form__input-default input__email" type="email" name="email" id="input__email" placeholder="Digite seu email..." autocomplete="off"/>
+         
+          <p class="message message__password"></p>
+          <label class="label__password">
+            <input class="form__input-default input__password" type="password" name="password" id="input__password" placeholder="Digite sua senha...">
+            <i class="far fa-eye" id="togglePassword"></i>
+          </label>
+
+          <button class="form_button action_signin" type="button">Entrar</button>
+        
+        </form>
+
+        <footer class="content__footer">
+          <p>
+            <span class="footer__text">Ainda não possui conta?</span> Clique 
+            <a href="#" class="link__change-page">
+              aqui
+            </a>
+          </p>
+        </footer>
+
+      </div>
+    </section>
+    
+    <section class="welcome">
+      <div class="circle"></div>
+      <h2 class="welcome__text">Hello He4rt</h2>
+    </section>
+
+  </div>
+
+  <script src="assets/main.js"></script>
+</body>
+</html>
