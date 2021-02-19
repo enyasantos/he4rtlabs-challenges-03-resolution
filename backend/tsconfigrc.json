@@ -1,0 +1,25 @@
+{
+  "compilerOptions": {
+    "lib": [
+      "es2019"
+    ],
+    "target": "es2019",
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "typeRoots": [
+      "node_modules/@types"
+    ],
+    "outDir": "dist",
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "sourceMap": true,
+    "baseUrl": ".",
+    "include": [
+      "src/**/*.ts"
+    ],
+    "exclude": [
+      "node_modules",
+      ".vscode"
+    ]
+  }
+}
