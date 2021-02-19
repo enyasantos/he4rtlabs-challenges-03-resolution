@@ -1,7 +1,7 @@
 import { MongoClient } from 'mongodb';
 
 export const connection = async () => {
-  const uri  = "mongodb+srv://mainAdmin:admin@cluster0.hrefk.mongodb.net/database?retryWrites=true&w=majority"
+  const uri  = `${process.env.URI_MONGO}`
 
   const client = new MongoClient(uri, { 
     useUnifiedTopology: true, 
