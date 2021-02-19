@@ -4,8 +4,8 @@
 <h3 align="center"> 🚧 Em construção ... 🚧</h3>
 
 <h3>🚀 O Desafio</h3>
-- Criar um frontend com dois formulários com transição suave entre eles, criando um efeito como se fosse o mesmo formulário.
-- Desenvolver o backend com integração de login e registro.
+-Criar um frontend com dois formulários com transição suave entre eles, criando um efeito como se fosse o mesmo formulário.
+-Desenvolver o backend com integração de login e registro.
 
 <h3>👩‍💻  Resultado</h3>
 <center><img src="./screen.gif"></center>
