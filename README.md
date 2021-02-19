@@ -15,7 +15,7 @@
 - CSS 3
 - JavaScript
 
-###To do list
--[x] Frontend.
--[x] Válidação dos campos de email e senha.
--[ ] Backend.
+### To do list
+- [x] Frontend.
+- [x] Válidação dos campos de email e senha.
+- [ ] Backend.
