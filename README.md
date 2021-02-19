@@ -16,6 +16,6 @@
 - JavaScript
 
 <h3>To do list</h3>
-- [x] Frontend.
-- [x] Válidação dos campos de email e senha.
-- [ ] Backend.
+-[x] Frontend.
+-[x] Válidação dos campos de email e senha.
+-[ ] Backend.
