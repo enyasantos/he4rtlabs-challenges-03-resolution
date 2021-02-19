@@ -4,6 +4,10 @@
 <h3 align="center"> 🚧 Em construção ... 🚧</h3>
 
 <h3>🚀 O Desafio</h3>
+<ul>
+  <li></li>
+  <li></li>
+</ul>
 -Criar um frontend com dois formulários com transição suave entre eles, criando um efeito como se fosse o mesmo formulário.
 -Desenvolver o backend com integração de login e registro.
 
@@ -11,9 +15,14 @@
 <center><img src="./screen.gif"></center>
 
 <h3>⚙️ Tecnologias usadas</h3>
-- HTML 5
-- CSS 3
-- JavaScript
+<ul>
+  <li>HTML5</li>
+  <li>CSS3</li>
+  <li>JavaScript</li>
+  <li>Typescrypt</li>
+  <li>Node.js</li>
+  <li>Express</li>
+</ul>
 
 ### To do list
 - [x] Frontend.
