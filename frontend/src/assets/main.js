@@ -14,15 +14,14 @@
   const welcome = document.querySelector('section.welcome');
   const circle = document.querySelector('div.circle');
   const welcomeText = document.querySelector('h2.welcome__text');
+  const welcomeBtnClose = document.querySelector('button.btn__logout');
 
   const email = document.querySelector('#input__email');
   const togglePassword = document.querySelector('#togglePassword');
   const password = document.querySelector('#input__password');
 
-  const messageEmail = document.querySelector('p.message__email');
-  const messagePass = document.querySelector('p.message__password');
-
   const audio = document.querySelector('audio.audio');
+  const alert = document.querySelector('div.alert');
 
   const loaderHTML = `
     <div class="loader">
@@ -32,6 +31,22 @@
       <div class="circle4"></div>
     </div>
   `;
+
+  (() => {
+    const token = window.localStorage.getItem('token');
+    if (token)
+      setTimeout(() => {
+        welcome.classList.toggle('active');
+        circle.classList.toggle('active');
+
+        setTimeout(() => welcomeText.classList.toggle('active'), 400);
+        setTimeout(() => {
+          welcomeBtnClose.classList.toggle('active');
+          closeWelcomeEvent();
+        }, 1000);
+
+      }, 500);
+  })();
 
   const signupContent = () => {
     email.value = '';
@@ -57,8 +72,85 @@
     footer.innerText = 'Já possui uma conta?';
   }
 
+  const closeWelcomeEvent = () => {
+    welcomeBtnClose.addEventListener('click', (e) => {
+      window.localStorage.removeItem('token');
+      window.localStorage.removeItem('id');
+
+      welcomeText.classList.remove('active');
+      welcomeBtnClose.classList.remove('active');
+      setTimeout(() => {
+        welcome.classList.remove('active');
+        circle.classList.remove('active');
+      }, 500);
+
+      button.innerHTML = 'Entrar';
+    });
+  }
+
+  const addLoader = () => {
+    button.innerHTML = loaderHTML;
+  }
+
+  const cleanMessageAlert = () => {
+    alert.children[0].innerText = '';
+    alert.classList.remove('active');
+  }
+
+  const btnCloseMessageAlert = () => {
+    alert.children[1].addEventListener('click', event => {
+      alert.classList.remove('active');
+    });
+  }
+
+  const messageAlert = (message, type) => {
+    alert.classList.remove('success');
+    alert.classList.remove('error');
+    alert.classList.remove('warning');
+
+    alert.classList.add(type);
+
+    alert.classList.add('active');
+
+    alert.children[0].innerText = message;
+
+    btnCloseMessageAlert();
+  }
+
+  async function signUp(email, password) {
+    const rawResponse = await fetch('http://localhost:3008/register', {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ email, password })
+    });
+
+    const content = await rawResponse.json();
+
+    return content;
+  }
+
+  async function signIn(email, password) {
+    const rawResponse = await fetch('http://localhost:3008/auth', {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ email, password })
+    });
+    const content = await rawResponse.json();
+
+    return content;
+
+  }
+
   linkChangePage.addEventListener('click', event => {
     event.preventDefault();
+
+    cleanMessageAlert();
 
     audio.play();
 
@@ -72,64 +164,96 @@
 
   });
 
-  buttonSign.addEventListener('click', event => {
+  buttonSign.addEventListener('click', async event => {
     event.preventDefault();
 
     const valueButton = buttonSign.classList.value;
 
     if (valueButton === 'form_button action_signin') {
 
-      messageEmail.innerText = '';
-      messagePass.innerText = '';
+      cleanMessageAlert();
 
       if (email.value === "" || email.value.indexOf('@') === -1 || email.value.indexOf('.') === -1) {
-        messageEmail.innerText = '* Informe um email válido.';
+        messageAlert('Informe um email válido.', 'warning');
         return;
       }
       if (password.value.length < 3) {
-        messagePass.innerText = '* Informe uma senha válida.';
+        messageAlert('Informe um senha válida.', 'warning');
         return;
       }
 
-      button.innerHTML = loaderHTML;
+      const response = await signIn(email.value, password.value);
 
-      setTimeout(() => {
-        welcome.classList.toggle('active');
-        circle.classList.toggle('active');
+      !response && addLoader();
 
-        setTimeout(() => welcomeText.classList.toggle('active'), 400)
+      if (response.ok !== undefined) {
+        addLoader();
 
-      }, 2000);
+        setTimeout(() => {
+          welcome.classList.toggle('active');
+          circle.classList.toggle('active');
+
+          window.localStorage.setItem('token', response.token);
+          window.localStorage.setItem('id', response.id);
+
+          email.value = '';
+          password.value = '';
+
+          setTimeout(() => welcomeText.classList.toggle('active'), 400);
+          setTimeout(() => {
+            welcomeBtnClose.classList.toggle('active');
+            closeWelcomeEvent();
+          }, 1000);
+
+        }, 2000);
+      }
+      else if (response.message !== undefined)
+        messageAlert(response.message, 'error');
+
     }
 
     else if (valueButton === 'form_button action_signup') {
 
-      messageEmail.innerText = '';
-      messagePass.innerText = '';
+      cleanMessageAlert();
 
       if (email.value === "" || email.value.indexOf('@') === -1 || email.value.indexOf('.') === -1) {
-        messageEmail.innerText = '* Informe um email válido.';
+        messageAlert('Informe um email válido.', 'warning');
         return;
       }
       if (password.value.length < 5) {
-        messagePass.innerText = '* Informe uma senha com pelo menos 5 caracteres.';
+        messageAlert('Informe uma senha com pelo menos 5 caracteres.', 'warning');
         return;
       }
 
-      button.innerHTML = loaderHTML;
+      const response = await signUp(email.value, password.value);
 
-      setTimeout(() => {
+      if (response.ok !== undefined) {
+        addLoader();
 
-        bgPurple.classList.toggle('active');
-        audio.play();
+        setTimeout(() => {
 
-        setTimeout(() => signupContent(), 200);
+          messageAlert('Conta cadastrada com sucesso.', 'success');
 
-      }, 2000);
+          bgPurple.classList.toggle('active');
+          audio.play();
+
+          email.value = '';
+          password.value = '';
+
+          setTimeout(() => signupContent(), 200);
+
+        }, 2000);
+
+        setTimeout(() => {
+          cleanMessageAlert();
+        }, 5000)
+      }
+      else if (response.message !== undefined)
+        messageAlert(response.message, 'error');
     }
   });
 
-  togglePassword.addEventListener('click', function (e) {
+  togglePassword.addEventListener('click', (e) => {
     const type = password.getAttribute('type') === 'password' ? 'text' : 'password';
 
     password.setAttribute('type', type);

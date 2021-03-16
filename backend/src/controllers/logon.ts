@@ -23,17 +23,19 @@ export default {
       }
     
       const passwordDatabase = responseDatabase.password;
-    
-      if(await bcrypt.compare(passwordDatabase, password)) {
-        return res.status(400).json({ message: 'Senha incorreta'});
+
+      const comperePassword = await bcrypt.compare(password, passwordDatabase);
+
+      if(comperePassword === false) {
+        return res.status(400).json({ message: 'Email e/ou senha estão incorretos.'});
       }
 
       const token = jwt.sign({ id: responseDatabase._id }, `${process.env.SECRET_KEY}`, { expiresIn: '1d' })
     
-      return res.status(200).json({ message: 'ok', token });
+      return res.status(200).json({ ok: 'ok', token, id: responseDatabase._id });
   
-    } catch (e){
-      return res.status(500).json({ message: 'Erro interno ao logar.' });
+    } catch {
+      return res.status(500).json({ message: 'Erro interno ao logar. Tente novamente.' });
     }
   },
 }

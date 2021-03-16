@@ -9,6 +9,10 @@
   <title>He4tr Form</title>
 </head>
 <body>
+  <div class="alert">
+    <p></p>
+    <span class="closebtn">&times;</span>
+  </div>
   <div class="wrapper">
     <audio class="audio" src="assets/notification.mp3"></audio>
     <section class="container signin__container">
@@ -26,10 +30,8 @@
 
         <form class="content__form">
 
-          <p class="message message__email"></p>
           <input class="form__input-default input__email" type="email" name="email" id="input__email" placeholder="Digite seu email..."/>
          
-          <p class="message message__password"></p>
           <label class="label__password">
             <input class="form__input-default input__password" type="password" name="password" id="input__password" placeholder="Digite sua senha...">
             <i class="far fa-eye" id="togglePassword"></i>
@@ -52,6 +54,7 @@
     </section>
     
     <section class="welcome">
+      <button class="btn__logout">sair</button>
       <div class="circle"></div>
       <h2 class="welcome__text">Hello He4rt</h2>
     </section>

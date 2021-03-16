@@ -4,13 +4,17 @@ import client from '../database/connection';
 
 export default {
   async index(req: Request, res: Response){
-    const users: Promise<User[]> = (await client)
+    try {
+      const users: Promise<User[]> = (await client)
     .db('database')
     .collection('users')
     .find()
     .toArray()
     
-    return res.status(201).json(await users);
+    return res.status(200).json(await users);
+    } catch {
+      return res.status(500).json({ message: 'Erro interno ao listar usuários. Tente novamente.' })
+    }
   },
 
   async create (req: Request, res: Response) {
@@ -29,8 +33,8 @@ export default {
         return res.status(409).json({ message: 'Email já cadastrado.'});
       }
     
-      const salt = await bcrypt.genSalt(10)
-      const hash = await bcrypt.hash(password, salt)
+      const salt = await bcrypt.genSalt(10);
+      const hash = await bcrypt.hash(password, salt);
     
       const result = (await client)
       .db('database')
@@ -40,10 +44,10 @@ export default {
         password: hash
       });
       
-      return res.status(201).json({ message: 'ok', id: (await result).insertedId });
+      return res.status(201).json({ ok: 'ok', id: (await result).insertedId });
   
-    } catch (e) {
-      return res.status(500).json({ message: 'Erro interno ao criar conta.' })
+    } catch {
+      return res.status(500).json({ message: 'Erro interno ao criar conta. Tente novamente.' })
     }
   }
 }
