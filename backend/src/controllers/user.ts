@@ -1,8 +1,18 @@
 import { Request, Response } from 'express';
 import * as bcrypt from 'bcrypt';
-import client from '../connection';
+import client from '../database/connection';
 
 export default {
+  async index(req: Request, res: Response){
+    const users: Promise<User[]> = (await client)
+    .db('database')
+    .collection('users')
+    .find()
+    .toArray()
+    
+    return res.status(201).json(await users);
+  },
+
   async create (req: Request, res: Response) {
     try {
       const {
