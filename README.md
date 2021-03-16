@@ -8,7 +8,9 @@
 </ul>
 
 <h3>👩‍💻  Resultado</h3>
-<center><img src="./screen.gif"></center>
+<center>
+  <img src="./screen.gif">
+</center>
 
 <h3>⚙️ Tecnologias usadas</h3>
 <ul>
