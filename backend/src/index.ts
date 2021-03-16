@@ -1,6 +1,6 @@
 import * as express from 'express';
 import * as bodyParser from 'body-parser';
-import { connection } from './connection';
+import { connection } from './database/connection';
 import routes from './routes';
 import 'dotenv/config';
 
