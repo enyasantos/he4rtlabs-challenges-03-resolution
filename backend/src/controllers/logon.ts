@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
 import * as bcrypt from 'bcrypt';
-import client from '../connection';
+import client from '../database/connection';
 import * as jwt from 'jsonwebtoken';
 
 export default {
