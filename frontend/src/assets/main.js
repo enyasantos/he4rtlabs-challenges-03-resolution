@@ -22,6 +22,7 @@
   const messageEmail = document.querySelector('p.message__email');
   const messagePass = document.querySelector('p.message__password');
 
+  const audio = document.querySelector('audio.audio');
 
   const loaderHTML = `
     <div class="loader">
@@ -58,6 +59,8 @@
 
   linkChangePage.addEventListener('click', event => {
     event.preventDefault();
+
+    audio.play();
 
     bgPurple.classList.toggle('active');
 
@@ -118,6 +121,7 @@
       setTimeout(() => {
 
         bgPurple.classList.toggle('active');
+        audio.play();
 
         setTimeout(() => signupContent(), 200);
 
