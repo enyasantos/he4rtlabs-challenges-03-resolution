@@ -5,6 +5,8 @@ import LogonController from './controllers/logon';
 const router = Router()
 
 router.post('/register', UserController.create);
+router.get('/users', UserController.index);
+
 router.post('/logon', LogonController.create);
 
 export default router;
